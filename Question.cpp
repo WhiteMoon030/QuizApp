@@ -1,26 +1,26 @@
 #include <iostream>
 #include <stdlib.h>
-#include<windows.h>
+#include <windows.h>
 #include "Question.h"
 
-//Fragenzähler
-int Question::count=0;
+//Statische Variablen
+unsigned int Question::m_rightAnswers=0;
+unsigned int Question::m_askedQuestions=0;
 
-//Konstruktor
-Question::Question(string inputQuestion, string inputRight, string inputFalse1, string inputFalse2, string inputFalse3)
-    : next(nullptr), m_question(inputQuestion), m_answers{inputRight, inputFalse1, inputFalse2, inputFalse3}
-{
-    count++;
-}
+//Standard Konstruktor
+Question::Question(){}
 
-//Destruktor
-Question::~Question()
+void Question::setValues(string inputQuestion, string inputRight, string inputFalse1, string inputFalse2, string inputFalse3)
 {
-    count--;
+    m_question = inputQuestion;
+    m_answers[0]=inputRight;
+    m_answers[1]=inputFalse1;
+    m_answers[2]=inputFalse2;
+    m_answers[3]=inputFalse3;
 }
 
 //Fragenausgabe
-void Question::ask()
+bool Question::ask()
 {
     //Frage auf der Konsole ausgeben
     cout << m_question << endl << endl;
@@ -62,15 +62,27 @@ void Question::ask()
         //Feedback geben
         try
         {
-            //Falls eine Zahl angegeben wurde die nicht zwischen 1 und 4 liegt
-            if(stoi(answer)>4 || stoi(answer)<1)
+            if(answer=="q") //Wenn "q" eingegeben wird, Quiz beenden
+            {
+                return false;
+            }else if(stoi(answer)>4 || stoi(answer)<1) //Falls eine Zahl angegeben wurde die nicht zwischen 1 und 4 liegt
             {
                 cout << "{Eingabefehler: Bitte gib eine Zahl zwischen 1 und 4 ein!}" << endl;
             }else
             {
                 //Wenn die eingegeben Zahl dem Index der richtigen Antwort entspricht -> Antwort richtig
-                if(stoi(answer)-1==rightIndex) cout << "[Richtig!]" << endl;
-                else cout << "[Falsch! Richtige Antwort: " << m_answers[0] << "]" << endl;
+                if(stoi(answer)-1==rightIndex)
+                {
+                    cout << "[Richtig!]" << endl;
+                    m_rightAnswers++;
+                }
+                else
+                {
+                    cout << "[Falsch!]"<< endl;
+                    Sleep(1000);
+                    cout << "[Richtige Antwort: \"" << m_answers[0] << "\"]" << endl;
+                }
+                m_askedQuestions++;
                 break;
             }
         }
@@ -83,5 +95,14 @@ void Question::ask()
 
     cout << "------------------------------------------------------------------------" << endl;
     Sleep(1000);
-    return;
+    return true;
+}
+
+void Question::operator=(Question &obj)
+{
+    m_question = obj.m_question;
+    for(int i=0; i<4; i++)
+    {
+        m_answers[i] = obj.m_answers[i];
+    }
 }
