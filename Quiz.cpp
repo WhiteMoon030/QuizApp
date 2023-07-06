@@ -2,11 +2,10 @@
 #include <fstream>
 #include "Quiz.h"
 
-Quiz::Quiz() : head(nullptr), tail(nullptr)
-{
+//Konstruktor
+Quiz::Quiz() : head(nullptr), tail(nullptr) {}
 
-}
-
+//Ladefunktion
 void Quiz::load(string inputDataFileName)
 {
     // Den angegebenen File einlsen
@@ -167,19 +166,6 @@ void Quiz::start()
 {
     cout << endl;
     printLogo();
-//    cout <<" ______     __         __     ______     ______        ______     __  __     __     ______        ______     ______   ______ " << endl;
-//    cout <<"/\\  __ \\   /\\ \\       /\\ \\   /\\  ___\\   /\\  ___\\      /\\  __ \\   /\\ \\/\\ \\   /\\ \\   /\\___  \\      /\\  __ \\   /\\  == \\ /\\  == \\" << endl;
-//    cout <<"\\ \\  __ \\  \\ \\ \\____  \\ \\ \\  \\ \\ \\____  \\ \\  __\\      \\ \\ \\/\\_\\  \\ \\ \\_\\ \\  \\ \\ \\  \\/_/  /__     \\ \\  __ \\  \\ \\  _-/ \\ \\  _-/" << endl;
-//    cout <<" \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_\\  \\ \\_____\\  \\ \\_____\\     \\ \\___\\_\\  \\ \\_____\\  \\ \\_\\   /\\_____\\     \\ \\_\\ \\_\\  \\ \\_\\    \\ \\_\\  " << endl;
-//    cout <<"  \\/_/\\/_/   \\/_____/   \\/_/   \\/_____/   \\/_____/      \\/___/_/   \\/_____/   \\/_/   \\/_____/      \\/_/\\/_/   \\/_/     \\/_/  " << endl;
-//    cout << "  _                _        ____        _" << endl;
-//    cout << " | |              (_)      / __ \\      (_)         /\\                " << endl;
-//    cout << " | |     ___  _ __ _ ___  | |  | |_   _ _ ____    /  \\   _ __  _ __  " << endl;
-//    cout << " | |    / _ \\| '__| / __| | |  | | | | | |_  /   / /\\ \\ | '_ \\| '_ \\ " << endl;
-//    cout << " | |___| (_) | |  | \\__ \\ | |__| | |_| | |/ /   / ____ \\| |_) | |_) |" << endl;
-//    cout << " |______\\___/|_|  |_|___/  \\___\\_\\\\__,_|_/___| /_/    \\_\\ .__/| .__/ " << endl;
-//    cout << "                                                        | |   | |    " << endl;
-//    cout << "                                                        |_|   |_|    " << endl;
 
     //Eingabemaske
     while(true)
@@ -363,6 +349,7 @@ void Quiz::listQuestions()
     }
 }
 
+//Logo auf der Konsole ausgeben
 void Quiz::printLogo() {
     string line;
     ifstream logo;
@@ -375,12 +362,31 @@ void Quiz::printLogo() {
     } else {
         cout << "No Logo inmplemented!" << endl;
     }
-
 }
 
 void Quiz::convertData(string fileName)
 {
     ifstream readFile(fileName);
+    string line;
 
+    if(!readFile)
+    {
+        cout << "Lesefehler: Datei \"" << fileName << "\" existiert nicht!" << endl;
+        return;
+    }
 
+    while(getline(readFile, line))
+    {
+        //Wenn keine Leerzeile die nächsten 5 Zeilen in Variablen speichern und neue Frage automatisch anlegen
+        if(!line.length() == 0)
+        {
+            string inputsForQuestion[5];
+            for(int i=0; i<5; i++)
+            {
+                inputsForQuestion[i] = line;
+                getline(readFile, line);
+            }
+            addQuestion(inputsForQuestion[0], inputsForQuestion[1], inputsForQuestion[2], inputsForQuestion[3], inputsForQuestion[4]);
+        }
+    }
 }
