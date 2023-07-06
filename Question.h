@@ -9,22 +9,25 @@ class Question
 {
 public:
     friend class Quiz;
-    //Konstruktor
-    Question(string inputQuestion, string inputRight, string inputFalse1, string inputFalse2, string inputFalse3);
-    //Destruktor
-    ~Question();
+    //Standard Konstruktor
+    Question();
 
     //Methoden
-    int getCount() { return count; }
-    void ask();
+    void setValues(string inputQuestion, string inputRight, string inputFalse1, string inputFalse2, string inputFalse3);
+    bool ask();
+
+    //Operatoren
+    void operator=(Question &obj);
 private:
-    static int count;
-    //Verkettungspointer für eine Einfach verkettete Liste
-    Question *next;
     //Frage
     string m_question;
     //Antworten
     string m_answers[4];
+    //Statistik
+    //Anzahl richtiger Antworten
+    static unsigned int m_rightAnswers;
+    //Anzahl gefragter Fragen
+    static unsigned int m_askedQuestions;
 };
 
 #endif // QUESTION_H_INCLUDED

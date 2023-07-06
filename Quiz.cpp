@@ -1,9 +1,29 @@
 #include <iostream>
 #include <fstream>
+#include <cmath>
 #include "Quiz.h"
 
-//Konstruktor
-Quiz::Quiz() : head(nullptr), tail(nullptr) {}
+//Standard Konstruktor
+Quiz::Quiz() : m_size(0), m_total(0), m_quiz(nullptr) {}
+
+void Quiz::addSize(unsigned int newSize)
+{
+    //Neuen Array im dynamischen Speicher erstellen
+    Question *tempQuiz = new Question[m_size+newSize];
+    //Alle Objekte aus dem alten Array in den neuen kopieren
+    for(int i=0; i<m_size; i++)
+    {
+        // "=" Operator aufrufen -> Objekt Question kopieren
+        tempQuiz[i] = m_quiz[i];
+    }
+    //Alten Array löschen
+    delete m_quiz;
+    //Pointer auf den neu angelegten Array zeigen lassen
+    m_quiz = tempQuiz;
+    //Größen Variable updaten
+    m_size = newSize;
+    return;
+}
 
 //Ladefunktion
 void Quiz::load(string inputDataFileName)
@@ -17,9 +37,6 @@ void Quiz::load(string inputDataFileName)
         exit(EXIT_FAILURE);
     }
 
-    // Zeilenweises einlesen
-    string line;
-
     /*
         Es gibt drei verschieden Zustände
         0 - Neue Frage einlesen
@@ -27,13 +44,25 @@ void Quiz::load(string inputDataFileName)
         2 - Frage einlesen abgeschlossen
     */
 
+    // Zeilenweises einlesen
+    string line;
+    unsigned int loadCount=0;
+    //Datei durchgehen und Größe vom Array ermitteln
+    while(getline(readFile,line))
+    {
+        if(!line.compare(QUESTION_ID)) loadCount++;
+    }
+    //Größe des Quiz-Arrays setzen
+    addSize(loadCount);
+
+    //Vor dem erneuten einlesen getline clearen
+    readFile.clear();
+    readFile.seekg(0);
+
     int status=0;
     int firstAnswer=0;
-    string lineQuestion;
-    string lineAnswerRight;
-    string lineAnswerFalse1;
-    string lineAnswerFalse2;
-    string lineAnswerFalse3;
+    //Eingelesene
+    string konstruktorInput[5];
     while(getline(readFile,line))
     {
         //Status setzen wenn spezielle Symbole eingelesen werden
@@ -53,17 +82,21 @@ void Quiz::load(string inputDataFileName)
             status=2;
             continue;
         }
+        if(!line.compare(ENDFILE_ID))
+        {
+            break;
+        }
 
         //Je nach Status Variablen setzen
         if(status==0)
         {
-            lineQuestion=line;
+            konstruktorInput[0]=line;
         }
         else if(status==1)
         {
             if(firstAnswer==1)
             {
-                lineAnswerRight=line;
+                konstruktorInput[1]=line;
                 firstAnswer++;
             }
             else
@@ -73,34 +106,31 @@ void Quiz::load(string inputDataFileName)
                 {
                 case 2:
                 {
-                    lineAnswerFalse1=line;
+                    konstruktorInput[2]=line;
                     firstAnswer++;
                     break;
                 }
                 case 3:
                 {
-                    lineAnswerFalse2=line;
+                    konstruktorInput[3]=line;
                     firstAnswer++;
                     break;
                 }
                 case 4:
                 {
-                    lineAnswerFalse3=line;
+                    konstruktorInput[4]=line;
                     break;
                 }
                 }
-
             }
         }
         else
         {
             //Wenn Ende erreicht neue Frage der Liste hinzufügen
-            addQuestion(lineQuestion, lineAnswerRight, lineAnswerFalse1, lineAnswerFalse2, lineAnswerFalse3);
+            addQuestion(konstruktorInput[0], konstruktorInput[1], konstruktorInput[2], konstruktorInput[3], konstruktorInput[4]);
             firstAnswer=0;
         }
     }
-
-
 }
 
 void Quiz::save(string inputDataFileName)
@@ -115,16 +145,16 @@ void Quiz::save(string inputDataFileName)
     //Daten in der Datei löschen
     writeFile.open(inputDataFileName, std::ofstream::out | std::ofstream::trunc);
 
-    //Alle Objekte aus der verketteten Liste in die Datei speichern
-    for(Question *p=head; p!=nullptr; p=p->next)
+    //Alle Objekte aus dem Array in eine Datei speichern
+    for(int i=0; i<m_total; i++)
     {
         writeFile << "#F\n";
-        writeFile << p->m_question;
+        writeFile << m_quiz[i].m_question;
         writeFile << "\n";
-        for(int i=0; i<4; i++)
+        for(int a=0; a<4; a++)
         {
             writeFile << "#A\n";
-            writeFile << p->m_answers[i];
+            writeFile << m_quiz[i].m_answers[a];
             writeFile << "\n";
         }
         writeFile << "#E\n\n";
@@ -135,30 +165,13 @@ void Quiz::save(string inputDataFileName)
 
 void Quiz::addQuestion(string inputQuestion, string inputRightAnswer, string inputFalseAnswer1, string inputFalseAnswer2, string inputFalseAnswer3)
 {
-    //Wenn Liste leer an den Anfang hängen
-    if(head==nullptr)
+    //Wenn Array voll -> Größe um Eins erhöhen
+    if(m_size == m_total)
     {
-        head = new Question(inputQuestion, inputRightAnswer, inputFalseAnswer1, inputFalseAnswer2, inputFalseAnswer3);
-        tail = head;
-        return;
+        addSize(1);
     }
-    else
-    {
-        //Durch die Liste gehen und schauen ob die Frage bereits existiert
-        for(Question *p = head; p!=nullptr; p=p->next)
-        {
-            //Wenn die Frage gleich nicht hinzufügen!
-            if(!p->m_question.compare(inputQuestion))
-            {
-                return;
-            }
-        }
-
-        //Wenn am Ende der Liste ans Ende hängen
-        tail->next = new Question(inputQuestion, inputRightAnswer, inputFalseAnswer1, inputFalseAnswer2, inputFalseAnswer3);
-        tail = tail->next;
-    }
-
+    m_quiz[m_total].setValues(inputQuestion, inputRightAnswer, inputFalseAnswer1, inputFalseAnswer2, inputFalseAnswer3);
+    m_total++;
 }
 
 //Hauptfunktion des Quizes
@@ -171,7 +184,7 @@ void Quiz::start()
     while(true)
     {
         midPrint("[Main-Menu]",'=');
-        midPrint("[Geladenen Fragen: "+ to_string(head->count)+"]");
+        midPrint("[Geladenen Fragen: "+ to_string(m_total)+"]");
         midPrint("Quiz Spielen [s]");
         midPrint("Fragen auflisten [l]");
         midPrint("Fragen erstellen [h]");
@@ -183,12 +196,37 @@ void Quiz::start()
         if(eingabe=='s' || eingabe=='S')
         {
             cout << endl << "================================================================================" << endl;
+            m_quiz->m_askedQuestions=0;
+            m_quiz->m_rightAnswers=0;
 
-            //Verkettete Liste druchgehen und Fragen abfragen
-            for(Question *p = head; p!=nullptr; p=p->next)
+            //Verkettete Liste durch Zufall druchgehen und Fragen abfragen
+            //Zufällige Reihenfolge erstellen
+            int randomArray[m_size];
+            for(int i=0; i<m_size; i++)
             {
-                p->ask();
+                randomArray[i] = i;
             }
+            //Reihenfolge durchmischen
+            for(int i=0; i<m_size; i++)
+            {
+                int randIndex = rand() % m_size;
+                int tmp = randomArray[i];
+                randomArray[i] = randomArray[randIndex];
+                randomArray[randIndex] = tmp;
+            }
+
+            for(int i=0; i<m_total; i++)
+            {
+                if(!m_quiz[randomArray[i]].ask()) break;
+            }
+
+            //Statistik ausgeben
+            double grade = ((double)m_quiz->m_rightAnswers/(double)m_quiz->m_askedQuestions)*100;
+            grade = ceil(grade*100.0) / 100.0;
+            cout << "--------------------------------------------------------------------------------" << endl;
+            cout << "Richtige Fragen: " << m_quiz->m_rightAnswers << "/" << m_quiz->m_askedQuestions << endl;
+            cout << "Note: " << grade << "%" << endl;
+
         }
         else if(eingabe=='h' || eingabe=='H')
         {
@@ -211,31 +249,26 @@ void Quiz::start()
             cout << "Ungueltige Eingabe!" << endl;
         }
     }
-
 }
 
 void Quiz::addNew()
 {
     while(true)
     {
-        string eingabeQuestion;
-        string eingabeAnswerRight;
-        string eingabeAnswerFalse1;
-        string eingabeAnswerFalse2;
-        string eingabeAnswerFalse3;
+        string input[5];
         cout << "--------------------------------------------------------------------------------" << endl;
         cout << "Neue Frage: ";
         cin.ignore();
-        getline(cin,eingabeQuestion);
+        getline(cin,input[0]);
         cout << "Richtige Antwort: ";
-        getline(cin,eingabeAnswerRight);
+        getline(cin,input[1]);
         cout << "Falsche Antwort: ";
-        getline(cin,eingabeAnswerFalse1);
+        getline(cin,input[2]);
         cout << "Falsche Antwort: ";
-        getline(cin,eingabeAnswerFalse2);
+        getline(cin,input[3]);
         cout << "Falsche Antwort: ";
-        getline(cin,eingabeAnswerFalse3);
-        addQuestion(eingabeQuestion,eingabeAnswerRight,eingabeAnswerFalse1,eingabeAnswerFalse2,eingabeAnswerFalse3);
+        getline(cin,input[4]);
+        addQuestion(input[0],input[1],input[2],input[3],input[4]);
 
         while(true)
         {
@@ -256,62 +289,58 @@ void Quiz::addNew()
 void Quiz::deleteOld()
 {
     cout << "--------------------------------------------------------------------------------" << endl;
-    if(head==nullptr)
+    if(m_total==0)
     {
         cout << "Es wurden keine Fragen gefunden!" << endl;
         return;
     }
     int tempCount=1;
     cout << "Welche Frage soll geloescht werden?" << endl << endl;
-    for(Question *p=head; p!=nullptr; p=p->next)
+    for(int i=0; i<m_total; i++)
     {
-        cout << "[" << tempCount << "] " << p->m_question << endl;
+        cout << "[" << tempCount << "] " << m_quiz[i].m_question << endl;
         tempCount++;
     }
     while(true)
     {
-        cout << endl << endl << "(Antwort:) ";
+        cout << endl << "(Antwort:) ";
         string answer;
         cin >> answer;
         try
         {
             //Falls eine Zahl angegeben wurde die nicht zwischen 1 und 4 liegt
-            if(stoi(answer)>head->count || stoi(answer)<1)
+            if(stoi(answer)>m_total || stoi(answer)<1)
             {
-                cout << "{Eingabefehler: Bitte gib eine Zahl zwischen 1 und" << head->count << "ein!}" << endl;
+                cout << "{Eingabefehler: Bitte gib eine Zahl zwischen 1 und " << m_total << " ein!}" << endl;
             }
             else
             {
                 //Angegebene Zahl löschen
-                if(stoi(answer)==1)
+                //Neuen Array erschaffen (nur einen kleiner)
+                int indexDelete = stoi(answer)-1;
+                //Wenn nur eine Frage existiert gesamtes Array löschen
+                if(m_size==1)
                 {
-                    if(head==tail) tail=head->next;
-                    Question *temp = head->next;
-                    delete head;
-                    head = temp;
-                }
-                else if(stoi(answer)==2)
-                {
-                    if(head->next==tail) tail=head;
-                    Question *temp = head->next->next;
-                    delete head->next;
-                    head->next = temp;
+                    delete m_quiz;
                 }
                 else
                 {
-                    Question *p = head;
-                    for(int i=0; i<stoi(answer)-2; i++)
+                    Question *tempArray = new Question[m_size-1];
+                    //Alles links von der Zahl in den Array kopieren
+                    for(int i=0; i<indexDelete; i++)
                     {
-                        p=p->next;
+                        tempArray[i] = m_quiz[i];
                     }
-
-                    if(p->next==tail) tail=p;
-                    Question *temp = p->next->next;
-                    delete p->next;
-                    p->next = temp;
-
-
+                    //Alles rechts von der Zahl in den Array kopieren
+                    for(int i=indexDelete+1; i<m_size; i++)
+                    {
+                        tempArray[i] = m_quiz[i];
+                    }
+                    delete m_quiz;
+                    m_quiz = tempArray;
                 }
+                m_size--;
+                m_total--;
                 save();
                 return;
             }
@@ -339,27 +368,30 @@ void Quiz::midPrint(string text, char symbol)
 
 void Quiz::listQuestions()
 {
-    int listCount = 1;
     cout << "--------------------------------------------------------------------------------" << endl;
     cout << "Liste aller Fragen:" << endl;
-    for(Question *p=head; p!=nullptr; p=p->next)
+    for(int i=0; i<m_total; i++)
     {
-        cout << "[" << listCount << "] " << p->m_question << endl;
-        listCount++;
+        cout << "[" << i+1 << "] " << m_quiz[i].m_question << endl;
     }
 }
 
 //Logo auf der Konsole ausgeben
-void Quiz::printLogo() {
+void Quiz::printLogo()
+{
     string line;
     ifstream logo;
     logo.open("logo.txt");
-    if(logo.is_open()) {
-        while (getline(logo, line)) {
+    if(logo.is_open())
+    {
+        while (getline(logo, line))
+        {
             cout << line << endl;
         }
         logo.close();
-    } else {
+    }
+    else
+    {
         cout << "No Logo inmplemented!" << endl;
     }
 }
