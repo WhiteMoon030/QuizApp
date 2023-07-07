@@ -16,12 +16,12 @@ void Quiz::addSize(unsigned int newSize)
         // "=" Operator aufrufen -> Objekt Question kopieren
         tempQuiz[i] = m_quiz[i];
     }
-    //Alten Array löschen
+    //Alten Array lÃ¶schen
     delete m_quiz;
     //Pointer auf den neu angelegten Array zeigen lassen
     m_quiz = tempQuiz;
-    //Größen Variable updaten
-    m_size = newSize;
+    //GrÃ¶ÃŸen Variable updaten
+    m_size = m_size+newSize;
     return;
 }
 
@@ -38,7 +38,7 @@ void Quiz::load(string inputDataFileName)
     }
 
     /*
-        Es gibt drei verschieden Zustände
+        Es gibt drei verschieden ZustÃ¤nde
         0 - Neue Frage einlesen
         1 - Richtige Antwort einlesen
         2 - Frage einlesen abgeschlossen
@@ -47,12 +47,12 @@ void Quiz::load(string inputDataFileName)
     // Zeilenweises einlesen
     string line;
     unsigned int loadCount=0;
-    //Datei durchgehen und Größe vom Array ermitteln
+    //Datei durchgehen und GrÃ¶ÃŸe vom Array ermitteln
     while(getline(readFile,line))
     {
         if(!line.compare(QUESTION_ID)) loadCount++;
     }
-    //Größe des Quiz-Arrays setzen
+    //GrÃ¶ÃŸe des Quiz-Arrays setzen
     addSize(loadCount);
 
     //Vor dem erneuten einlesen getline clearen
@@ -126,7 +126,7 @@ void Quiz::load(string inputDataFileName)
         }
         else
         {
-            //Wenn Ende erreicht neue Frage der Liste hinzufügen
+            //Wenn Ende erreicht neue Frage der Liste hinzufÃ¼gen
             addQuestion(konstruktorInput[0], konstruktorInput[1], konstruktorInput[2], konstruktorInput[3], konstruktorInput[4]);
             firstAnswer=0;
         }
@@ -142,7 +142,7 @@ void Quiz::save(string inputDataFileName)
         cout << "Schreibfehler: Datei \"" << inputDataFileName << "\" existiert nicht!" << endl;
         exit(EXIT_FAILURE);
     }
-    //Daten in der Datei löschen
+    //Daten in der Datei lÃ¶schen
     writeFile.open(inputDataFileName, std::ofstream::out | std::ofstream::trunc);
 
     //Alle Objekte aus dem Array in eine Datei speichern
@@ -165,11 +165,8 @@ void Quiz::save(string inputDataFileName)
 
 void Quiz::addQuestion(string inputQuestion, string inputRightAnswer, string inputFalseAnswer1, string inputFalseAnswer2, string inputFalseAnswer3)
 {
-    //Wenn Array voll -> Größe um Eins erhöhen
-    if(m_size == m_total)
-    {
-        addSize(1);
-    }
+    //Wenn Array voll -> GrÃ¶ÃŸe um Eins erhÃ¶hen
+    if(m_size == m_total) addSize(1);
     m_quiz[m_total].setValues(inputQuestion, inputRightAnswer, inputFalseAnswer1, inputFalseAnswer2, inputFalseAnswer3);
     m_total++;
 }
@@ -200,7 +197,7 @@ void Quiz::start()
             m_quiz->m_rightAnswers=0;
 
             //Verkettete Liste durch Zufall druchgehen und Fragen abfragen
-            //Zufällige Reihenfolge erstellen
+            //ZufÃ¤llige Reihenfolge erstellen
             int randomArray[m_size];
             for(int i=0; i<m_size; i++)
             {
@@ -315,10 +312,10 @@ void Quiz::deleteOld()
             }
             else
             {
-                //Angegebene Zahl löschen
+                //Angegebene Zahl lÃ¶schen
                 //Neuen Array erschaffen (nur einen kleiner)
                 int indexDelete = stoi(answer)-1;
-                //Wenn nur eine Frage existiert gesamtes Array löschen
+                //Wenn nur eine Frage existiert gesamtes Array lÃ¶schen
                 if(m_size==1)
                 {
                     delete m_quiz;
@@ -334,7 +331,7 @@ void Quiz::deleteOld()
                     //Alles rechts von der Zahl in den Array kopieren
                     for(int i=indexDelete+1; i<m_size; i++)
                     {
-                        tempArray[i] = m_quiz[i];
+                        tempArray[i-1] = m_quiz[i];
                     }
                     delete m_quiz;
                     m_quiz = tempArray;
@@ -409,7 +406,7 @@ void Quiz::convertData(string fileName)
 
     while(getline(readFile, line))
     {
-        //Wenn keine Leerzeile die nächsten 5 Zeilen in Variablen speichern und neue Frage automatisch anlegen
+        //Wenn keine Leerzeile die nÃ¤chsten 5 Zeilen in Variablen speichern und neue Frage automatisch anlegen
         if(!line.length() == 0)
         {
             string inputsForQuestion[5];
