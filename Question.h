@@ -10,19 +10,20 @@ class Question
 public:
     friend class Quiz;
     //Standard Konstruktor
-    Question();
+    Question() {};
+    //Konstruktor
+    Question(string inputQuestion) : m_question(inputQuestion) {}
+    //Destruktor
+    virtual ~Question() {};
 
     //Methoden
-    void setValues(string inputQuestion, string inputRight, string inputFalse1, string inputFalse2, string inputFalse3);
-    bool ask();
+    virtual void setValues(){};
+    virtual bool ask(){ return false; };
+    virtual string getValue(int index){ return ""; };
 
-    //Operatoren
-    void operator=(Question &obj);
-private:
+protected:
     //Frage
     string m_question;
-    //Antworten
-    string m_answers[4];
     //Statistik
     //Anzahl richtiger Antworten
     static unsigned int m_rightAnswers;

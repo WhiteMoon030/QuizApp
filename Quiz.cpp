@@ -2,6 +2,8 @@
 #include <fstream>
 #include <cmath>
 #include "Quiz.h"
+#include "Question.h"
+#include "QuestionChoice.h"
 
 //Standard Konstruktor
 Quiz::Quiz() : m_size(0), m_total(0), m_quiz(nullptr) {}
@@ -9,18 +11,18 @@ Quiz::Quiz() : m_size(0), m_total(0), m_quiz(nullptr) {}
 void Quiz::addSize(unsigned int newSize)
 {
     //Neuen Array im dynamischen Speicher erstellen
-    Question *tempQuiz = new Question[m_size+newSize];
+    Question **tempQuiz = new Question*[m_size+newSize];
     //Alle Objekte aus dem alten Array in den neuen kopieren
     for(int i=0; i<m_size; i++)
     {
         // "=" Operator aufrufen -> Objekt Question kopieren
         tempQuiz[i] = m_quiz[i];
     }
-    //Alten Array lÃ¶schen
-    delete m_quiz;
+    //Alten Array löschen
+    delete [] m_quiz;
     //Pointer auf den neu angelegten Array zeigen lassen
     m_quiz = tempQuiz;
-    //GrÃ¶ÃŸen Variable updaten
+    //Größen Variable updaten
     m_size = m_size+newSize;
     return;
 }
@@ -38,7 +40,7 @@ void Quiz::load(string inputDataFileName)
     }
 
     /*
-        Es gibt drei verschieden ZustÃ¤nde
+        Es gibt drei verschieden Zustände
         0 - Neue Frage einlesen
         1 - Richtige Antwort einlesen
         2 - Frage einlesen abgeschlossen
@@ -47,12 +49,12 @@ void Quiz::load(string inputDataFileName)
     // Zeilenweises einlesen
     string line;
     unsigned int loadCount=0;
-    //Datei durchgehen und GrÃ¶ÃŸe vom Array ermitteln
+    //Datei durchgehen und Größe vom Array ermitteln
     while(getline(readFile,line))
     {
         if(!line.compare(QUESTION_ID)) loadCount++;
     }
-    //GrÃ¶ÃŸe des Quiz-Arrays setzen
+    //Größe des Quiz-Arrays setzen
     addSize(loadCount);
 
     //Vor dem erneuten einlesen getline clearen
@@ -126,7 +128,7 @@ void Quiz::load(string inputDataFileName)
         }
         else
         {
-            //Wenn Ende erreicht neue Frage der Liste hinzufÃ¼gen
+            //Wenn Ende erreicht neue Frage der Liste hinzufügen
             addQuestion(konstruktorInput[0], konstruktorInput[1], konstruktorInput[2], konstruktorInput[3], konstruktorInput[4]);
             firstAnswer=0;
         }
@@ -142,19 +144,19 @@ void Quiz::save(string inputDataFileName)
         cout << "Schreibfehler: Datei \"" << inputDataFileName << "\" existiert nicht!" << endl;
         exit(EXIT_FAILURE);
     }
-    //Daten in der Datei lÃ¶schen
+    //Daten in der Datei löschen
     writeFile.open(inputDataFileName, std::ofstream::out | std::ofstream::trunc);
 
     //Alle Objekte aus dem Array in eine Datei speichern
     for(int i=0; i<m_total; i++)
     {
         writeFile << "#F\n";
-        writeFile << m_quiz[i].m_question;
+        writeFile << m_quiz[i]->m_question;
         writeFile << "\n";
         for(int a=0; a<4; a++)
         {
             writeFile << "#A\n";
-            writeFile << m_quiz[i].m_answers[a];
+            writeFile << m_quiz[i]->getValue(a);
             writeFile << "\n";
         }
         writeFile << "#E\n\n";
@@ -165,9 +167,11 @@ void Quiz::save(string inputDataFileName)
 
 void Quiz::addQuestion(string inputQuestion, string inputRightAnswer, string inputFalseAnswer1, string inputFalseAnswer2, string inputFalseAnswer3)
 {
-    //Wenn Array voll -> GrÃ¶ÃŸe um Eins erhÃ¶hen
+    //Wenn Array voll -> Größe um Eins erhöhen
     if(m_size == m_total) addSize(1);
-    m_quiz[m_total].setValues(inputQuestion, inputRightAnswer, inputFalseAnswer1, inputFalseAnswer2, inputFalseAnswer3);
+    //cout << "Test" << endl;
+
+    m_quiz[m_total] = new QuestionChoice(inputQuestion, inputRightAnswer, inputFalseAnswer1, inputFalseAnswer2, inputFalseAnswer3);
     m_total++;
 }
 
@@ -193,11 +197,11 @@ void Quiz::start()
         if(eingabe=='s' || eingabe=='S')
         {
             cout << endl << "================================================================================" << endl;
-            m_quiz->m_askedQuestions=0;
-            m_quiz->m_rightAnswers=0;
+            m_quiz[0]->m_askedQuestions=0;
+            m_quiz[0]->m_rightAnswers=0;
 
             //Verkettete Liste durch Zufall druchgehen und Fragen abfragen
-            //ZufÃ¤llige Reihenfolge erstellen
+            //Zufällige Reihenfolge erstellen
             int randomArray[m_size];
             for(int i=0; i<m_size; i++)
             {
@@ -214,14 +218,14 @@ void Quiz::start()
 
             for(int i=0; i<m_total; i++)
             {
-                if(!m_quiz[randomArray[i]].ask()) break;
+                if(!m_quiz[randomArray[i]]->ask()) break;
             }
 
             //Statistik ausgeben
-            double grade = ((double)m_quiz->m_rightAnswers/(double)m_quiz->m_askedQuestions)*100;
+            double grade = ((double)m_quiz[0]->m_rightAnswers/(double)m_quiz[0]->m_askedQuestions)*100;
             grade = ceil(grade*100.0) / 100.0;
             cout << "--------------------------------------------------------------------------------" << endl;
-            cout << "Richtige Fragen: " << m_quiz->m_rightAnswers << "/" << m_quiz->m_askedQuestions << endl;
+            cout << "Richtige Fragen: " << m_quiz[0]->m_rightAnswers << "/" << m_quiz[0]->m_askedQuestions << endl;
             cout << "Note: " << grade << "%" << endl;
 
         }
@@ -295,7 +299,7 @@ void Quiz::deleteOld()
     cout << "Welche Frage soll geloescht werden?" << endl << endl;
     for(int i=0; i<m_total; i++)
     {
-        cout << "[" << tempCount << "] " << m_quiz[i].m_question << endl;
+        cout << "[" << tempCount << "] " << m_quiz[i]->m_question << endl;
         tempCount++;
     }
     while(true)
@@ -312,17 +316,17 @@ void Quiz::deleteOld()
             }
             else
             {
-                //Angegebene Zahl lÃ¶schen
+                //Angegebene Zahl löschen
                 //Neuen Array erschaffen (nur einen kleiner)
                 int indexDelete = stoi(answer)-1;
-                //Wenn nur eine Frage existiert gesamtes Array lÃ¶schen
+                //Wenn nur eine Frage existiert gesamtes Array löschen
                 if(m_size==1)
                 {
                     delete m_quiz;
                 }
                 else
                 {
-                    Question *tempArray = new Question[m_size-1];
+                    Question **tempArray = new Question*[m_size-1];
                     //Alles links von der Zahl in den Array kopieren
                     for(int i=0; i<indexDelete; i++)
                     {
@@ -366,10 +370,15 @@ void Quiz::midPrint(string text, char symbol)
 void Quiz::listQuestions()
 {
     cout << "--------------------------------------------------------------------------------" << endl;
+    if (m_total==0)
+    {
+        cout << "Fragenliste leer!" << endl;
+        return;
+    }
     cout << "Liste aller Fragen:" << endl;
     for(int i=0; i<m_total; i++)
     {
-        cout << "[" << i+1 << "] " << m_quiz[i].m_question << endl;
+        cout << "[" << i+1 << "] " << m_quiz[i]->m_question << endl;
     }
 }
 
@@ -406,7 +415,7 @@ void Quiz::convertData(string fileName)
 
     while(getline(readFile, line))
     {
-        //Wenn keine Leerzeile die nÃ¤chsten 5 Zeilen in Variablen speichern und neue Frage automatisch anlegen
+        //Wenn keine Leerzeile die nächsten 5 Zeilen in Variablen speichern und neue Frage automatisch anlegen
         if(!line.length() == 0)
         {
             string inputsForQuestion[5];

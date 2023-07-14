@@ -42,7 +42,7 @@ private:
     //Tatsächlich belegte Member vom Array
     int m_total;
     //Pointer auf Array aus Fragen
-    Question *m_quiz;
+    Question **m_quiz;
 };
 
 #endif // QUIZ_H_INCLUDED
