@@ -1,0 +1,47 @@
+# depslib dependency file v1.0
+1691624969 source:e:\programmieren\c++\projekte\quizapp\main.cpp
+	<stdlib.h>
+	<time.h>
+	"Question.h"
+	"Quiz.h"
+
+1691626291 e:\programmieren\c++\projekte\quizapp\question.h
+	<string>
+
+1691625653 e:\programmieren\c++\projekte\quizapp\quiz.h
+	<string>
+	"Question.h"
+
+1691626060 source:e:\programmieren\c++\projekte\quizapp\question.cpp
+	"Question.h"
+
+1691625034 source:e:\programmieren\c++\projekte\quizapp\questionchoice.cpp
+	<iostream>
+	<stdlib.h>
+	<unistd.h>
+	<stdexcept>
+	"QuestionChoice.h"
+
+1691625096 e:\programmieren\c++\projekte\quizapp\questionchoice.h
+	<string>
+	"Question.h"
+
+1691625770 source:e:\programmieren\c++\projekte\quizapp\questioninsert.cpp
+	<iostream>
+	<unistd.h>
+	"QuestionInsert.h"
+
+1691625734 e:\programmieren\c++\projekte\quizapp\questioninsert.h
+	<string>
+	"Question.h"
+
+1691625700 source:e:\programmieren\c++\projekte\quizapp\quiz.cpp
+	<iostream>
+	<fstream>
+	<cmath>
+	<stdexcept>
+	"Quiz.h"
+	"Question.h"
+	"QuestionChoice.h"
+	"QuestionInsert.h"
+
