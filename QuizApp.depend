@@ -1,47 +1,56 @@
 # depslib dependency file v1.0
-1691624969 source:e:\programmieren\c++\projekte\quizapp\main.cpp
+1692202515 source:e:\programmieren\c++\projekte\quizapp\main.cpp
 	<stdlib.h>
 	<time.h>
-	"Question.h"
-	"Quiz.h"
+	"Menu.h"
 
-1691626291 e:\programmieren\c++\projekte\quizapp\question.h
+1691651363 e:\programmieren\c++\projekte\quizapp\question.h
 	<string>
 
-1691625653 e:\programmieren\c++\projekte\quizapp\quiz.h
+1692202630 e:\programmieren\c++\projekte\quizapp\quiz.h
 	<string>
 	"Question.h"
 
-1691626060 source:e:\programmieren\c++\projekte\quizapp\question.cpp
+1691651363 source:e:\programmieren\c++\projekte\quizapp\question.cpp
 	"Question.h"
 
-1691625034 source:e:\programmieren\c++\projekte\quizapp\questionchoice.cpp
+1691651363 source:e:\programmieren\c++\projekte\quizapp\questionchoice.cpp
 	<iostream>
 	<stdlib.h>
 	<unistd.h>
 	<stdexcept>
 	"QuestionChoice.h"
 
-1691625096 e:\programmieren\c++\projekte\quizapp\questionchoice.h
+1691651363 e:\programmieren\c++\projekte\quizapp\questionchoice.h
 	<string>
 	"Question.h"
 
-1691625770 source:e:\programmieren\c++\projekte\quizapp\questioninsert.cpp
+1691651363 source:e:\programmieren\c++\projekte\quizapp\questioninsert.cpp
 	<iostream>
 	<unistd.h>
 	"QuestionInsert.h"
 
-1691625734 e:\programmieren\c++\projekte\quizapp\questioninsert.h
+1691651363 e:\programmieren\c++\projekte\quizapp\questioninsert.h
 	<string>
 	"Question.h"
 
-1691625700 source:e:\programmieren\c++\projekte\quizapp\quiz.cpp
+1692201989 source:e:\programmieren\c++\projekte\quizapp\quiz.cpp
 	<iostream>
 	<fstream>
-	<cmath>
 	<stdexcept>
 	"Quiz.h"
 	"Question.h"
 	"QuestionChoice.h"
 	"QuestionInsert.h"
+
+1692202110 source:e:\programmieren\c++\projekte\quizapp\quiztable.cpp
+	"QuizTable.h"
+
+1692202457 e:\programmieren\c++\projekte\quizapp\quiztable.h
+	<string>
+	"Quiz.h"
+
+1692202477 e:\programmieren\c++\projekte\quizapp\menu.h
+	<string>
+	"QuizTable.h"
 

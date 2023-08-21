@@ -17,6 +17,7 @@ const unsigned int LINE_LENGTH = 96;
 class Quiz
 {
 public:
+    friend class Menu;
     //Standard Konstruktor
     Quiz();
     //Funktionen zum Laden und Speichern der Fragen in eine Textdatei
@@ -27,15 +28,8 @@ public:
     //Funktionen zum hinzufügen von Fragen zum Array
     void addQuestion(string inputQuestion, string inputRightAnswer);
     void addQuestion(string inputQuestion, string inputRightAnswer, string inputFalseAnswer1, string inputFalseAnswer2, string inputFalseAnswer3);
-    //Funktion zum starten des Quiz
-    void start();
-    //Eingabemaske für Neue Fragen
-    void addNew();
-    void deleteOld();
-    void listQuestions();
     //Visuelle Ausgabe auf der Konsole
     void midPrint(string text, char symbol=' ');
-    void printLogo();
     void convertData(string fileName);
     //Methoden zum Löschen einzelner Fragen oder aller Fragen
     void delArray(int index=-1);
