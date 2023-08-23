@@ -12,14 +12,7 @@ int main()
 
     //Ein Menu Objekt erstellen
     Menu m;
-    //Neues Quiz hinzufügen
-    m.addQuiz("default");
-
-    //Aus der Datei "data.txt" alle Fragen in den dynamischen Speicher Laden
-    m.load(0, "data.txt");
     m.start();
 
-    //Alle Fragen aus dem dynamischen Speicher in die Datei "data.txt" speichern
-    m.save(0, "data.txt");
     return 0;
 }

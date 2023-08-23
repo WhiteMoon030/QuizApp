@@ -9,13 +9,15 @@ class Menu
 {
 public:
 	//Standardkonstruktor
-	Menu(){}
+	Menu();
+	//Destruktor
+	~Menu();
 	//Methoden
 	void start();
 	void addNew();
 	void deleteOld();
 	void listQuestions();
-	void midPrint(string text, char symbol);
+	void midPrint(string text, char symbol=' ');
 	void printLogo();
 
 	//QuizTable Zugriff

@@ -9,6 +9,7 @@ class Question
 {
 public:
     friend class Quiz;
+    friend class Menu;
     //Standard Konstruktor
     Question() {}
     //Konstruktor

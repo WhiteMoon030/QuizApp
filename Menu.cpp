@@ -8,6 +8,21 @@
 #include "Quiz.h"
 #include "Menu.h"
 
+//Standardkonstruktor
+Menu::Menu()
+{
+    m_quizTable.addQuiz("default");
+    //Aus der Datei "data.txt" alle Fragen in den dynamischen Speicher Laden
+    load(0, "data.txt");
+}
+
+//Destruktor
+Menu::~Menu()
+{
+    //Alle Fragen aus dem dynamischen Speicher in die Datei "data.txt" speichern
+    save(0, "data.txt");
+}
+
 //Hauptfunktion des Quizes
 void Menu::start()
 {
@@ -29,34 +44,39 @@ void Menu::start()
         cin >> eingabe;
         if(eingabe=='s' || eingabe=='S')
         {
-    	    cout << endl << "------------------------------------------------------------------------" << endl;
-	    if(m_total==0)
-	    {
-        	cout << "Es wurden keine Fragen gefunden!" << endl;
-		continue;
-	    }
-            m_quiz[0]->m_askedQuestions=0;
-            m_quiz[0]->m_rightAnswers=0;
+            cout << endl << "------------------------------------------------------------------------" << endl;
+            if(m_quizTable.m_table[0]->m_total==0)
+            {
+                cout << "Es wurden keine Fragen gefunden!" << endl;
+                continue;
+            }
+            m_quizTable.m_table[0]->m_quiz[0]->m_askedQuestions=0;
+            m_quizTable.m_table[0]->m_quiz[0]->m_rightAnswers=0;
 
             //Verkettete Liste durch Zufall druchgehen und Fragen abfragen
             //Zufällige Reihenfolge erstellen
-            int randomArray[m_size];
-            for(int i=0; i<m_size; i++)
+            int randomArray[m_quizTable.m_table[0]->m_size];
+            for(int i=0; i<m_quizTable.m_table[0]->m_size; i++)
             {
                 randomArray[i] = i;
             }
             //Reihenfolge durchmischen
-            for(int i=0; i<m_size; i++)
+            for(int i=0; i<m_quizTable.m_table[0]->m_size; i++)
             {
-                int randIndex = rand() % m_size;
+                int randIndex = rand() % m_quizTable.m_table[0]->m_size;
                 int tmp = randomArray[i];
                 randomArray[i] = randomArray[randIndex];
                 randomArray[randIndex] = tmp;
             }
+            //Fragen abfragen
+            for(int i=0; i<m_quizTable.m_table[0]->m_size; i++)
+            {
+                m_quizTable.m_table[0]->m_quiz[i]->ask();
+            }
             //Statistik ausgeben
-            double grade = ((double)m_quiz[0]->m_rightAnswers/(double)m_quiz[0]->m_askedQuestions)*100;
+            double grade = ((double)m_quizTable.m_table[0]->m_quiz[0]->m_rightAnswers/(double)m_quizTable.m_table[0]->m_quiz[0]->m_askedQuestions)*100;
             grade = ceil(grade*100.0) / 100.0;
-            cout << "Richtige Fragen: " << m_quiz[0]->m_rightAnswers << "/" << m_quiz[0]->m_askedQuestions << endl;
+            cout << "Richtige Fragen: " << m_quizTable.m_table[0]->m_quiz[0]->m_rightAnswers << "/" << m_quizTable.m_table[0]->m_quiz[0]->m_askedQuestions << endl;
             cout << "Note: " << grade << "%" << endl;
 
         }
@@ -89,48 +109,48 @@ void Menu::addNew()
     while(true)
     {
         cout << "--------------------------------------------------------------------------------" << endl;
-	while(true)
-	{
-	    cout << "Eingabefrage oder Singel Choice? [e/s]" << endl;
-	    char choice;
-	    cin >> choice;
-	    if(choice=='e')
-	    {
-		string input[2];
-        	cout << "Neue Frage: ";
-		//Bevor getline das letzte eingelsen \n ignorieren
-        	cin.ignore(1000, '\n');
-        	getline(cin,input[0]);
-        	cout << "Richtige Antwort: ";
-        	getline(cin,input[1]);
-		addQuestion(input[0], input[1]);
-		break;
-	    }
-	    else if(choice=='s')
-	    {
-        	string input[5];
-        	cout << "Neue Frage: ";
-		//Bevor getline das letzte eingelsen \n ignorieren
-        	cin.ignore(1000, '\n');
-        	getline(cin,input[0]);
-        	cout << "Richtige Antwort: ";
-        	getline(cin,input[1]);
-        	cout << "Falsche Antwort: ";
-        	getline(cin,input[2]);
-        	cout << "Falsche Antwort: ";
-        	getline(cin,input[3]);
-        	cout << "Falsche Antwort: ";
-        	getline(cin,input[4]);
-        	addQuestion(input[0],input[1],input[2],input[3],input[4]);
-		break;
-	    }
-	    else if(choice=='q')
-	    {
-		save();
-		return;
-	    }
-	    else cout << "Eingabefehler!" << endl;
-	}
+        while(true)
+        {
+            cout << "Eingabefrage oder Singel Choice? [e/s]" << endl;
+            char choice;
+            cin >> choice;
+            if(choice=='e')
+            {
+                string input[2];
+                cout << "Neue Frage: ";
+                //Bevor getline das letzte eingelsen \n ignorieren
+                cin.ignore(1000, '\n');
+                getline(cin,input[0]);
+                cout << "Richtige Antwort: ";
+                getline(cin,input[1]);
+                m_quizTable.m_table[0]->addQuestion(input[0], input[1]);
+                break;
+            }
+            else if(choice=='s')
+            {
+                string input[5];
+                cout << "Neue Frage: ";
+                //Bevor getline das letzte eingelsen \n ignorieren
+                cin.ignore(1000, '\n');
+                getline(cin,input[0]);
+                cout << "Richtige Antwort: ";
+                getline(cin,input[1]);
+                cout << "Falsche Antwort: ";
+                getline(cin,input[2]);
+                cout << "Falsche Antwort: ";
+                getline(cin,input[3]);
+                cout << "Falsche Antwort: ";
+                getline(cin,input[4]);
+                m_quizTable.m_table[0]->addQuestion(input[0],input[1],input[2],input[3],input[4]);
+                break;
+            }
+            else if(choice=='q')
+            {
+                save(0, "data.txt");
+                return;
+            }
+            else cout << "Eingabefehler!" << endl;
+        }
 
         while(true)
         {
@@ -139,7 +159,7 @@ void Menu::addNew()
             cin >> eingabe;
             if(eingabe=='n')
             {
-                save();
+                save(0, "data.txt");
                 return;
             }
             else if(eingabe=='y') break;
@@ -152,28 +172,28 @@ void Menu::addNew()
 void Menu::deleteOld()
 {
     cout << "--------------------------------------------------------------------------------" << endl;
-    if(m_total==0)
+    if(m_quizTable.m_table[0]->m_total==0)
     {
         cout << "Es wurden keine Fragen gefunden!" << endl;
         return;
     }
     cout << "Welche Frage soll geloescht werden?" << endl << endl;
-    for(int i=0; i<m_total; i++)
+    for(int i=0; i<m_quizTable.m_table[0]->m_total; i++)
     {
-        cout << "[" << i+1 << "] " << m_quiz[i]->m_question << endl;
+        cout << "[" << i+1 << "] " << m_quizTable.m_table[0]->m_quiz[i]->m_question << endl;
     }
     while(true)
     {
         cout << endl << "(Antwort:) ";
         string answer;
         cin >> answer;
-	if(answer=="q") return;
+        if(answer=="q") return;
         try
         {
             //Falls eine Zahl angegeben wurde die nicht zwischen 1 und 4 liegt
-            if(stoi(answer)>m_total || stoi(answer)<1)
+            if(stoi(answer)>m_quizTable.m_table[0]->m_total || stoi(answer)<1)
             {
-                cout << "{Eingabefehler: Bitte gib eine Zahl zwischen 1 und " << m_total << " ein!}" << endl;
+                cout << "{Eingabefehler: Bitte gib eine Zahl zwischen 1 und " << m_quizTable.m_table[0]->m_total << " ein!}" << endl;
             }
             else
             {
@@ -181,30 +201,30 @@ void Menu::deleteOld()
                 //Neuen Array erschaffen (nur einen kleiner)
                 int indexDelete = stoi(answer)-1;
                 //Wenn nur eine Frage existiert gesamtes Array löschen
-                if(m_size==1)
+                if(m_quizTable.m_table[0]->m_size==1)
                 {
-                    delArray();
+                    m_quizTable.m_table[0]->delArray();
                 }
                 else
                 {
-                    Question **tempArray = new Question*[m_size-1];
+                    Question **tempArray = new Question*[m_quizTable.m_table[0]->m_size-1];
                     //Alles links von der Zahl in den Array kopieren
                     for(int i=0; i<indexDelete; i++)
                     {
-                        tempArray[i] = m_quiz[i];
+                        tempArray[i] = m_quizTable.m_table[0]->m_quiz[i];
                     }
                     //Alles rechts von der Zahl in den Array kopieren
-                    for(int i=indexDelete+1; i<m_size; i++)
+                    for(int i=indexDelete+1; i<m_quizTable.m_table[0]->m_size; i++)
                     {
-                        tempArray[i-1] = m_quiz[i];
+                        tempArray[i-1] = m_quizTable.m_table[0]->m_quiz[i];
                     }
-		    //Element welches gelöscht werden soll entfernen
-		    delArray(indexDelete);
-                    m_quiz = tempArray;
+                    //Element welches gelöscht werden soll entfernen
+                    m_quizTable.m_table[0]->delArray(indexDelete);
+                    m_quizTable.m_table[0]->m_quiz = tempArray;
                 }
-                m_size--;
-                m_total--;
-                save();
+                m_quizTable.m_table[0]->m_size--;
+                m_quizTable.m_table[0]->m_total--;
+                save(0, "data.txt");
                 return;
             }
         }
@@ -220,15 +240,15 @@ void Menu::deleteOld()
 void Menu::listQuestions()
 {
     cout << "--------------------------------------------------------------------------------" << endl;
-    if (m_total==0)
+    if (m_quizTable.m_table[0]->m_total==0)
     {
         cout << "Fragenliste leer!" << endl;
         return;
     }
     cout << "Liste aller Fragen:" << endl;
-    for(int i=0; i<m_total; i++)
+    for(int i=0; i<m_quizTable.m_table[0]->m_total; i++)
     {
-        cout << "[" << i+1 << "] " << m_quiz[i]->m_question << endl;
+        cout << "[" << i+1 << "] " << m_quizTable.m_table[0]->m_quiz[i]->m_question << endl;
     }
 }
 
