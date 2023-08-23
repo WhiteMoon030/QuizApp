@@ -10,7 +10,7 @@ Developed with CodeBlocks 20.03 and compiled with MinGW-W64-builds-4.3.5
 
 ## Files
   ### Main Source Files: 
-  main.cpp, Quiz.h, Quiz.cpp, Question.h, Question.cpp, QuestionChoice.h, QuestionChoice.cpp, QuestionInsert.h, QuestionInsert.cpp
+  main.cpp, Menu.h, Menu.cpp, QuizTable.h, QuizTable.cpp, Quiz.h, Quiz.cpp, Question.h, Question.cpp, QuestionChoice.h, QuestionChoice.cpp, QuestionInsert.h, QuestionInsert.cpp
   ### CodeBlocks Project Files: 
   QuizApp.cbp, QuizApp.depend, QuizApp.layout, /obj
   ### Git Files: 
