@@ -5,6 +5,7 @@
 		<Option title="QuizApp" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
+		<Option virtualFolders="wxFrames/;wxFrames/Sources/;wxFrames/Headers/;QuizFiles/;QuizFiles/Sources/;QuizFiles/Headers/" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/QuizApp" prefix_auto="1" extension_auto="1" />
@@ -13,7 +14,15 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="C:/Users/loris/Documents/Studium/Programmieren/C++/wxWidgets/lib/gcc810_x64_dll/mswu" />
+					<Add directory="C:/Users/loris/Documents/Studium/Programmieren/C++/wxWidgets/include" />
 				</Compiler>
+				<Linker>
+					<Add option="-static-libstdc++" />
+					<Add option="-static-libgcc" />
+					<Add option="-lwxmsw32u_core -lwxbase32u" />
+					<Add directory="C:/Users/loris/Documents/Studium/Programmieren/C++/wxWidgets/lib/gcc810_x64_dll" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/QuizApp" prefix_auto="1" extension_auto="1" />
@@ -32,19 +41,57 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="Menu.cpp" />
-		<Unit filename="Menu.h" />
-		<Unit filename="Question.cpp" />
-		<Unit filename="Question.h" />
-		<Unit filename="QuestionChoice.cpp" />
-		<Unit filename="QuestionChoice.h" />
-		<Unit filename="QuestionInsert.cpp" />
-		<Unit filename="QuestionInsert.h" />
-		<Unit filename="Quiz.cpp" />
-		<Unit filename="Quiz.h" />
-		<Unit filename="QuizTable.cpp" />
-		<Unit filename="QuizTable.h" />
-		<Unit filename="main.cpp" />
+		<Unit filename="Menu.cpp">
+			<Option virtualFolder="QuizFiles/Sources/" />
+		</Unit>
+		<Unit filename="Menu.h">
+			<Option virtualFolder="QuizFiles/Headers/" />
+		</Unit>
+		<Unit filename="MenuFrame.cpp">
+			<Option virtualFolder="wxFrames/Sources/" />
+		</Unit>
+		<Unit filename="MenuFrame.h">
+			<Option virtualFolder="wxFrames/Headers/" />
+		</Unit>
+		<Unit filename="Question.cpp">
+			<Option virtualFolder="QuizFiles/Sources/" />
+		</Unit>
+		<Unit filename="Question.h">
+			<Option virtualFolder="QuizFiles/Headers/" />
+		</Unit>
+		<Unit filename="QuestionChoice.cpp">
+			<Option virtualFolder="QuizFiles/Sources/" />
+		</Unit>
+		<Unit filename="QuestionChoice.h">
+			<Option virtualFolder="QuizFiles/Headers/" />
+		</Unit>
+		<Unit filename="QuestionInsert.cpp">
+			<Option virtualFolder="QuizFiles/Sources/" />
+		</Unit>
+		<Unit filename="QuestionInsert.h">
+			<Option virtualFolder="QuizFiles/Headers/" />
+		</Unit>
+		<Unit filename="Quiz.cpp">
+			<Option virtualFolder="QuizFiles/Sources/" />
+		</Unit>
+		<Unit filename="Quiz.h">
+			<Option virtualFolder="QuizFiles/Headers/" />
+		</Unit>
+		<Unit filename="QuizApp.cpp">
+			<Option virtualFolder="wxFrames/Sources/" />
+		</Unit>
+		<Unit filename="QuizApp.h">
+			<Option virtualFolder="wxFrames/Headers/" />
+		</Unit>
+		<Unit filename="QuizTable.cpp">
+			<Option virtualFolder="QuizFiles/Sources/" />
+		</Unit>
+		<Unit filename="QuizTable.h">
+			<Option virtualFolder="QuizFiles/Headers/" />
+		</Unit>
+		<Unit filename="main.cpp">
+			<Option virtualFolder="QuizFiles/Sources/" />
+		</Unit>
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
