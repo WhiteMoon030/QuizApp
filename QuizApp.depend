@@ -119,11 +119,12 @@
 	"Quiz.h"
 	"Menu.h"
 
-1692894717 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\menuframe.cpp
+1692977059 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\menuframe.cpp
 	"MenuFrame.h"
 	<wx/wx.h>
+	<iostream>
 
-1692894717 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\menuframe.h
+1692978537 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\menuframe.h
 	<wx/wx.h>
 
 1654525425 c:\users\loris\documents\studium\programmieren\c++\wxwidgets\include\wx\wx.h
@@ -2747,13 +2748,13 @@
 
 1654525425 c:\users\loris\documents\studium\programmieren\c++\wxwidgets\include\wx\qt\mdi.h
 
-1692895125 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quizapp.cpp
+1692910017 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quizapp.cpp
 	"MenuFrame.h"
 	"QuizApp.h"
 	<wx/wx.h>
 	<stdlib.h>
 	<time.h>
 
-1692894929 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quizapp.h
+1692909594 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quizapp.h
 	<wx/app.h>
 

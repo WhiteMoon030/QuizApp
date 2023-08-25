@@ -20,7 +20,7 @@
 				<Linker>
 					<Add option="-static-libstdc++" />
 					<Add option="-static-libgcc" />
-					<Add option="-lwxmsw32u_core -lwxbase32u" />
+					<Add option="-lwxmsw31u_core -lwxbase31u" />
 					<Add directory="C:/Users/loris/Documents/Studium/Programmieren/C++/wxWidgets/lib/gcc810_x64_dll" />
 				</Linker>
 			</Target>
@@ -88,9 +88,6 @@
 		</Unit>
 		<Unit filename="QuizTable.h">
 			<Option virtualFolder="QuizFiles/Headers/" />
-		</Unit>
-		<Unit filename="main.cpp">
-			<Option virtualFolder="QuizFiles/Sources/" />
 		</Unit>
 		<Extensions />
 	</Project>

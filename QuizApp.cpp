@@ -13,6 +13,9 @@ bool QuizApp::OnInit()
 
     //Neues Menü Fenster erzeugen
     MenuFrame *menuFrame = new MenuFrame("QuizApp");
+    //Fenstergröße setzen und mittig auf dem Bildschirm anzeigen lassen
+    menuFrame->SetClientSize(FRAME_WIDTH,FRAME_HEIGHT);
+    menuFrame->Center();
     //Menü Fenster anzeigen lassen
     menuFrame->Show();
     return true;
