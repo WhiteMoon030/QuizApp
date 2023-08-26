@@ -1,18 +1,13 @@
 #include "MenuFrame.h"
+#include "EditFrame.h"
 #include <wx/wx.h>
 
-#include <iostream>
-
 //Konstruktor, Fügt ein Panel sowie Text und Buttons hinzu
-MenuFrame::MenuFrame(const wxString &title) : //Initialisierungsliste
-//Aufruf des Vaterklassen Konstruktors von wxFrame
-wxFrame(nullptr, -1, title),
-//Neues Panel erzeugen
-m_panel(new wxPanel(this)),
+MenuFrame::MenuFrame(const wxString &title, QuizTable *pointer) : //Initialisierungsliste
+//Aufruf des Vaterklassen Konstruktors von FrameBase
+FrameBase(title, pointer),
 //Titelschriftzug
 m_header(new wxStaticText(m_panel, wxID_ANY, "QuizApp", wxPoint(0,50), wxSize(800, -1), wxALIGN_CENTER_HORIZONTAL)),
-//Bodentext
-m_bottom_quote(new wxStaticText(m_panel, wxID_ANY, "Entwickelt von Loris Els - ©2023", wxPoint(0,575), wxSize(800, -1), wxALIGN_CENTER_HORIZONTAL)),
 /*
     [Buttons]
     Aufbau:
@@ -37,21 +32,22 @@ m_quit_button(new wxButton(m_panel, wxID_ANY, "Beenden", wxPoint(250,300), wxSiz
 //Spielen Button Event
 void MenuFrame::OnPlayButtonClicked(wxCommandEvent &evt)
 {
-    std::cout << "Play" << std::endl;
+    wxMessageBox("Feature \"Spielen\" noch in Entwicklung!", "Information");
 }
 //Stapel bearbeiten Button Event
 void MenuFrame::OnEditButtonClicked(wxCommandEvent &evt)
 {
-    std::cout << "Edit" << std::endl;
+    EditFrame *editFrame = new EditFrame("Stapel bearbeiten",m_pointerTable);
+    Close();
 }
 //Optionen Button Event
 void MenuFrame::OnOptionsButtonClicked(wxCommandEvent &evt)
 {
-    std::cout << "Options" << std::endl;
+    wxMessageBox("Feature \"Optionen\" noch in Entwicklung!", "Information");
 }
 //Beenden Button Event
 void MenuFrame::OnQuitButtonClicked(wxCommandEvent &evt)
 {
     //Applikation wird beendet
-    Destroy();
+    Close();
 }

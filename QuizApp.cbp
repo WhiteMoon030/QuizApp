@@ -41,6 +41,15 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="EditFrame.cpp">
+			<Option virtualFolder="wxFrames/Sources/" />
+		</Unit>
+		<Unit filename="EditFrame.h">
+			<Option virtualFolder="wxFrames/Headers/" />
+		</Unit>
+		<Unit filename="FrameBase.h">
+			<Option virtualFolder="wxFrames/Headers/" />
+		</Unit>
 		<Unit filename="Menu.cpp">
 			<Option virtualFolder="QuizFiles/Sources/" />
 		</Unit>

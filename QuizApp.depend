@@ -63,11 +63,11 @@
 	<string>
 	"QuizTable.h"
 
-1692709518 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiztable.h
+1693080591 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiztable.h
 	<string>
 	"Quiz.h"
 
-1692709518 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiz.h
+1693080989 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiz.h
 	<string>
 	"Question.h"
 
@@ -97,7 +97,7 @@
 	<string>
 	"Question.h"
 
-1692709518 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiz.cpp
+1693080520 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiz.cpp
 	<iostream>
 	<fstream>
 	<stdexcept>
@@ -106,7 +106,7 @@
 	"QuestionChoice.h"
 	"QuestionInsert.h"
 
-1692709518 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiztable.cpp
+1693080989 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiztable.cpp
 	"QuizTable.h"
 
 1692893688 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\menu.cpp
@@ -119,12 +119,13 @@
 	"Quiz.h"
 	"Menu.h"
 
-1692977059 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\menuframe.cpp
+1693081162 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\menuframe.cpp
 	"MenuFrame.h"
+	"EditFrame.h"
 	<wx/wx.h>
-	<iostream>
 
-1692978537 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\menuframe.h
+1693081162 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\menuframe.h
+	"FrameBase.h"
 	<wx/wx.h>
 
 1654525425 c:\users\loris\documents\studium\programmieren\c++\wxwidgets\include\wx\wx.h
@@ -2748,13 +2749,25 @@
 
 1654525425 c:\users\loris\documents\studium\programmieren\c++\wxwidgets\include\wx\qt\mdi.h
 
-1692910017 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quizapp.cpp
+1693061652 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quizapp.cpp
 	"MenuFrame.h"
 	"QuizApp.h"
 	<wx/wx.h>
 	<stdlib.h>
 	<time.h>
 
-1692909594 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quizapp.h
+1693060093 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quizapp.h
+	"QuizTable.h"
 	<wx/app.h>
+
+1693081124 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\framebase.h
+	"QuizTable.h"
+	<wx/wx.h>
+
+1693080863 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\editframe.cpp
+	"EditFrame.h"
+	"MenuFrame.h"
+
+1693081162 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\editframe.h
+	"FrameBase.h"
 

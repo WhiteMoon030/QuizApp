@@ -11,12 +11,10 @@ bool QuizApp::OnInit()
     //Jedes Mal neue Zufallszahlen erzeugen
     srand(time(NULL));
 
+    //Neuen Quiz Table erzeugen
+    m_table = new QuizTable();
+
     //Neues Menü Fenster erzeugen
-    MenuFrame *menuFrame = new MenuFrame("QuizApp");
-    //Fenstergröße setzen und mittig auf dem Bildschirm anzeigen lassen
-    menuFrame->SetClientSize(FRAME_WIDTH,FRAME_HEIGHT);
-    menuFrame->Center();
-    //Menü Fenster anzeigen lassen
-    menuFrame->Show();
+    MenuFrame *menuFrame = new MenuFrame("QuizApp", m_table);
     return true;
 }

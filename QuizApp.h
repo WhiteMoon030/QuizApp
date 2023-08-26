@@ -2,17 +2,15 @@
 #define QUIZAPP_H_INCLUDED
 
 //wxWidget Applikationsklasse
-
+#include "QuizTable.h"
 #include <wx/app.h>
-
-//Konstanten
-const int FRAME_WIDTH=800;
-const int FRAME_HEIGHT=600;
 
 class QuizApp : public wxApp
 {
 public:
     bool OnInit();
+private:
+    QuizTable *m_table;
 };
 
 

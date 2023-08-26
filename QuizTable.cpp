@@ -18,6 +18,7 @@ void QuizTable::addQuiz(string quiz_name)
 	delete[] m_table;
 	//Neues Quiz dynamisch erstellen und hinten an den Array anhängen
 	temp[m_size] = new Quiz();
+	temp[m_size]->setName(quiz_name);
 	//Table Pointer setzen
 	m_table = temp;
 	//Größe um Eins erhöhen

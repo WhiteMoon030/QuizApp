@@ -9,6 +9,7 @@ class QuizTable
 {
 public:
     friend class Menu;
+    friend class EditFrame;
 	//Standardkonstruktor
 	QuizTable();
 	//Methoden

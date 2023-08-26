@@ -18,6 +18,7 @@ class Quiz
 {
 public:
     friend class Menu;
+    friend class EditFrame;
     //Standard Konstruktor
     Quiz();
     //Funktionen zum Laden und Speichern der Fragen in eine Textdatei
@@ -33,7 +34,11 @@ public:
     void convertData(string fileName);
     //Methoden zum Löschen einzelner Fragen oder aller Fragen
     void delArray(int index=-1);
+    //Namen setzen
+    void setName(string inputName) { m_name = inputName; }
 private:
+    //Name des Quiz
+    string m_name;
     //Größe des Arrays
     int m_size;
     //Tatsächlich belegte Member vom Array

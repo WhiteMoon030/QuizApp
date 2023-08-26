@@ -7,7 +7,7 @@
 #include "QuestionInsert.h"
 
 //Standard Konstruktor
-Quiz::Quiz() : m_size(0), m_total(0), m_quiz(nullptr) {}
+Quiz::Quiz() : m_name("default"), m_size(0), m_total(0), m_quiz(nullptr) {}
 
 void Quiz::addSize(unsigned int newSize)
 {
