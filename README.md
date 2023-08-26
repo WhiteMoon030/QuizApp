@@ -1,6 +1,6 @@
 # QuizApp
-A console application for creating, deleting and querying quizzes. (For Windows and Linux systems)
-Developed with CodeBlocks 20.03 and compiled with MinGW-W64-builds-4.3.5
+A console application for creating, deleting and querying quizzes. (For Windows and Linux systems)\
+Developed with CodeBlocks 20.03 and compiled with MinGW-W64-builds-4.3.5\
 GUI was made with wxWidgets 3.1.7
 
 ## Application Logic
