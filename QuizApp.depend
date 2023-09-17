@@ -63,7 +63,7 @@
 	<string>
 	"QuizTable.h"
 
-1693080591 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiztable.h
+1694944656 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiztable.h
 	<string>
 	"Quiz.h"
 
@@ -106,7 +106,7 @@
 	"QuestionChoice.h"
 	"QuestionInsert.h"
 
-1693080989 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiztable.cpp
+1694944965 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiztable.cpp
 	"QuizTable.h"
 
 1692893688 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\menu.cpp
@@ -2764,7 +2764,7 @@
 	"QuizTable.h"
 	<wx/wx.h>
 
-1693080863 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\editframe.cpp
+1694944435 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\editframe.cpp
 	"EditFrame.h"
 	"MenuFrame.h"
 

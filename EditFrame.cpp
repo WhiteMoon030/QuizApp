@@ -27,9 +27,22 @@ m_checkBox(new wxCheckListBox(m_panel, wxID_ANY, wxPoint(40, 50), wxSize(720, 45
 //Hinzufügen Button Event
 void EditFrame::OnAddButtonClicked(wxCommandEvent &evt)
 {
-    m_pointerTable->addQuiz("Default");
-    loadQuizTable();
+    //Eingabe des Quiz Namens
+    wxTextEntryDialog *namensEingabe = new wxTextEntryDialog(this, "Quiz-Name:","Neues Quiz", "",wxOK | wxCANCEL | wxCENTRE | wxWS_EX_VALIDATE_RECURSIVELY);
+    if(namensEingabe->ShowModal() == wxID_OK)
+    {
+        //Umwandlung des zurückgegeben wxStrings von GetValue in einen std::string
+        string eingabe = string(namensEingabe->GetValue().mb_str());
+        if(eingabe!="")
+        {
+            //Neues Quiz mit diesem Namen hinzufügen
+            m_pointerTable->addQuiz(eingabe);
+            loadQuizTable();
+        }
+    }
+    delete namensEingabe;
 }
+
 //Bearbeiten Button Event
 void EditFrame::OnEditButtonClicked(wxCommandEvent &evt)
 {
@@ -38,6 +51,19 @@ void EditFrame::OnEditButtonClicked(wxCommandEvent &evt)
 //Löschen Button Event
 void EditFrame::OnDeleteButtonClicked(wxCommandEvent &evt)
 {
+    //Alle Checkboxen durchgehen und die markierten löschen
+    for(int i=0; i<m_pointerTable->m_size; i++)
+    {
+        if(m_checkBox->IsChecked(i))
+        {
+            string text = "Sicher das Sie das Quiz \"" +  m_pointerTable->m_table[i]->m_name + "\" löschen wollen?";
+            wxMessageDialog* sicher = new wxMessageDialog(this, text, "Löschen", wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
+            if(sicher->ShowModal() == wxID_YES) m_pointerTable->deleteQuiz(i);
+            delete sicher;
+        }
+    }
+    m_pointerTable->reconstruct();
+    loadQuizTable();
 
 }
 //Zurück Button Event

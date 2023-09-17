@@ -14,9 +14,13 @@ public:
 	QuizTable();
 	//Methoden
 	void addQuiz(string quiz_name);
+	void deleteQuiz(unsigned int index);
+	void reconstruct();
 private:
-	//Größe des Arrays
+	//Tatsächliche Größe des Arrays
 	int m_size;
+	//Belegte Elemente des Arrays
+	int m_elements;
 	//Pointer auf Array von Quiz Objekten
 	Quiz **m_table;
 };
