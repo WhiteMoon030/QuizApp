@@ -63,11 +63,11 @@
 	<string>
 	"QuizTable.h"
 
-1694944656 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiztable.h
+1695392883 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiztable.h
 	<string>
 	"Quiz.h"
 
-1693080989 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiz.h
+1695392943 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quiz.h
 	<string>
 	"Question.h"
 
@@ -2749,8 +2749,8 @@
 
 1654525425 c:\users\loris\documents\studium\programmieren\c++\wxwidgets\include\wx\qt\mdi.h
 
-1693061652 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quizapp.cpp
-	"MenuFrame.h"
+1695391552 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\quizapp.cpp
+	"MainFrame.h"
 	"QuizApp.h"
 	<wx/wx.h>
 	<stdlib.h>
@@ -2764,10 +2764,51 @@
 	"QuizTable.h"
 	<wx/wx.h>
 
-1694944435 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\editframe.cpp
+1695389857 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\editframe.cpp
 	"EditFrame.h"
 	"MenuFrame.h"
 
-1693081162 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\editframe.h
+1695389837 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\editframe.h
 	"FrameBase.h"
+	"EditQuizPanel.h"
+
+1694947570 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\editquizpage.cpp
+	"EditQuizPage.h"
+
+1695389666 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\editquizpage.h
+	<wx/wx.h>
+	"FrameBase.h"
+
+1695392917 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\editquizpanel.cpp
+	"EditQuizPanel.h"
+
+1695392967 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\editquizpanel.h
+	<wx/wx.h>
+	"PanelBase.h"
+
+1695392726 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\mainframe.cpp
+	"MainFrame.h"
+	"MainMenuPanel.h"
+
+1695392726 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\mainframe.h
+	"PanelBase.h"
+	"QuizTable.h"
+	<wx/wx.h>
+
+1695392600 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\mainmenupanel.cpp
+	"MainMenuPanel.h"
+
+1695392600 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\mainmenupanel.h
+	"PanelBase.h"
+
+1695393470 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\panelbase.h
+	<wx/wx.h>
+	"QuizTable.h"
+
+1695392600 source:c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\editmenupanel.cpp
+	"EditMenuPanel.h"
+	<string>
+
+1695392600 c:\users\loris\documents\studium\programmieren\c++\projekte\quizapp\editmenupanel.h
+	"PanelBase.h"
 

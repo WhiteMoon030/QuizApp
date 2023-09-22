@@ -18,7 +18,7 @@ class Quiz
 {
 public:
     friend class Menu;
-    friend class EditFrame;
+    friend class EditMenuPanel;
     //Standard Konstruktor
     Quiz();
     //Funktionen zum Laden und Speichern der Fragen in eine Textdatei

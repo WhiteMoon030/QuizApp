@@ -1,4 +1,4 @@
-#include "MenuFrame.h"
+#include "MainFrame.h"
 #include "QuizApp.h"
 #include <wx/wx.h>
 #include <stdlib.h>
@@ -14,7 +14,7 @@ bool QuizApp::OnInit()
     //Neuen Quiz Table erzeugen
     m_table = new QuizTable();
 
-    //Neues Menü Fenster erzeugen
-    MenuFrame *menuFrame = new MenuFrame("QuizApp", m_table);
+    //Neues Hauptfenster erzeugen
+    MainFrame *mainFrame = new MainFrame("QuizApp", m_table);
     return true;
 }

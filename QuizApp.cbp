@@ -5,7 +5,7 @@
 		<Option title="QuizApp" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="wxFrames/;wxFrames/Sources/;wxFrames/Headers/;QuizFiles/;QuizFiles/Sources/;QuizFiles/Headers/" />
+		<Option virtualFolders="wxWidget/;QuizFiles/;QuizFiles/Sources/;QuizFiles/Headers/;wxWidget/wxApp &amp; MainFrame/;wxWidget/wxPanels/;wxWidget/wxPanels/Headers/;wxWidget/wxPanels/Sources/;wxWidget/wxApp &amp; MainFrame/Headers/;wxWidget/wxApp &amp; MainFrame/Sources/" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/QuizApp" prefix_auto="1" extension_auto="1" />
@@ -41,14 +41,29 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="EditFrame.cpp">
-			<Option virtualFolder="wxFrames/Sources/" />
+		<Unit filename="EditMenuPanel.cpp">
+			<Option virtualFolder="wxWidget/wxPanels/Sources/" />
 		</Unit>
-		<Unit filename="EditFrame.h">
-			<Option virtualFolder="wxFrames/Headers/" />
+		<Unit filename="EditMenuPanel.h">
+			<Option virtualFolder="wxWidget/wxPanels/Headers/" />
 		</Unit>
-		<Unit filename="FrameBase.h">
-			<Option virtualFolder="wxFrames/Headers/" />
+		<Unit filename="EditQuizPanel.cpp">
+			<Option virtualFolder="wxWidget/wxPanels/Sources/" />
+		</Unit>
+		<Unit filename="EditQuizPanel.h">
+			<Option virtualFolder="wxWidget/wxPanels/Headers/" />
+		</Unit>
+		<Unit filename="MainFrame.cpp">
+			<Option virtualFolder="wxWidget/wxApp &amp; MainFrame/Sources/" />
+		</Unit>
+		<Unit filename="MainFrame.h">
+			<Option virtualFolder="wxWidget/wxApp &amp; MainFrame/Headers/" />
+		</Unit>
+		<Unit filename="MainMenuPanel.cpp">
+			<Option virtualFolder="wxWidget/wxPanels/Sources/" />
+		</Unit>
+		<Unit filename="MainMenuPanel.h">
+			<Option virtualFolder="wxWidget/wxPanels/Headers/" />
 		</Unit>
 		<Unit filename="Menu.cpp">
 			<Option virtualFolder="QuizFiles/Sources/" />
@@ -56,11 +71,8 @@
 		<Unit filename="Menu.h">
 			<Option virtualFolder="QuizFiles/Headers/" />
 		</Unit>
-		<Unit filename="MenuFrame.cpp">
-			<Option virtualFolder="wxFrames/Sources/" />
-		</Unit>
-		<Unit filename="MenuFrame.h">
-			<Option virtualFolder="wxFrames/Headers/" />
+		<Unit filename="PanelBase.h">
+			<Option virtualFolder="wxWidget/wxPanels/Headers/" />
 		</Unit>
 		<Unit filename="Question.cpp">
 			<Option virtualFolder="QuizFiles/Sources/" />
@@ -87,10 +99,10 @@
 			<Option virtualFolder="QuizFiles/Headers/" />
 		</Unit>
 		<Unit filename="QuizApp.cpp">
-			<Option virtualFolder="wxFrames/Sources/" />
+			<Option virtualFolder="wxWidget/wxApp &amp; MainFrame/Sources/" />
 		</Unit>
 		<Unit filename="QuizApp.h">
-			<Option virtualFolder="wxFrames/Headers/" />
+			<Option virtualFolder="wxWidget/wxApp &amp; MainFrame/Headers/" />
 		</Unit>
 		<Unit filename="QuizTable.cpp">
 			<Option virtualFolder="QuizFiles/Sources/" />
